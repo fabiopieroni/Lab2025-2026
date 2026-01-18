@@ -1,0 +1,174 @@
+WINDOW
+    sf::RenderWindow window(sf::VideoMode(sf::Vector2u({512, 256})), "Tilemap");
+
+
+
+RETTANGOLO
+    sf::RectangleShape rectangle({120.f, 50.f});
+    rectangle.setSize({100.f, 100.f});
+
+WHILE
+    while (window.isOpen())
+    {
+        // handle events
+        while (const std::optional event = window.pollEvent())
+        {
+            if (event->is<sf::Event::Closed>())
+                window.close();
+        }
+        window.clear();
+        window.draw(ENTITY);
+        window.display();
+    }
+
+ENTITY
+    MyEntity entity;
+    entity.setPosition(sf::Vector2f(500.0f, 500.0f));
+
+(MOVEMENT)
+    entity.move(sf::Vector2f(10.0f, 0.0f));sf::Vector2f targetPos(1000.f, 1000.f); // dove vuoi che vada
+    float speed = 200.f; // pixel al secondo
+    sf::Clock clock;
+        while (window.isOpen())
+        {
+            float dt = clock.restart().asSeconds();
+            // Vettore dal punto corrente al target
+            sf::Vector2f direction = targetPos - entity.getPosition();
+
+            // Calcola la lunghezza del vettore
+            float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+
+            if (distance > 0.f) {
+                // Normalizza il vettore
+                sf::Vector2f movement = (direction / distance) * speed * dt;
+
+                // Non superare il target
+                if (std::sqrt(movement.x * movement.x + movement.y * movement.y) > distance)
+                    movement = direction;
+
+                // Muovi l'entità
+                entity.move(movement);
+            }
+
+
+
+TILEMAP
+int main()
+{
+    // create the window
+    sf::RenderWindow window(sf::VideoMode(sf::Vector2u({512, 256})), "Tilemap");
+
+    // define the level with an array of tile indices
+    constexpr std::array level = {
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 1,
+        1, 1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 1,
+        1, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 1,
+        1, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 1,
+        1, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 1,
+        1, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    };
+
+    // create the tilemap from the level definition
+    TileMap map;
+    if (!map.load("tileset.png", {32, 32}, level.data(), 16, 8))
+        return -1;
+
+    while (window.isOpen())
+    {
+        // handle events
+        while (const std::optional event = window.pollEvent())
+        {
+            if (event->is<sf::Event::Closed>())
+                window.close();
+        }
+
+        // draw the map
+        window.clear();
+        window.draw(map);
+        window.display();
+    }
+}
+
+COLLISION
+            sf::FloatRect boundingBox = entity.getGlobalBounds();
+            sf::FloatRect otherBox =wall.getGlobalBounds();
+            if (const std::optional intersection = boundingBox.findIntersection(otherBox))
+            {
+                // gestisci la collisione
+            }
+
+
+
+            -mappa   tile(nemico,amico,ostacolo,strada)
+            -enemy
+            -personaggio
+            -algoritmo
+
+
+
+
+
+/*
+int main()
+{
+    auto window = sf::RenderWindow(sf::VideoMode(sf::Vector2u(1920u, 1080u)), "CMake SFML Project");
+    window.setFramerateLimit(144);
+    MyEntity entity;
+    entity.setPosition(sf::Vector2f(0.0f, 500.0f));
+    sf::Vector2f targetPos(1900.f, 500.f); // dove vuoi che vada
+    float speed = 200.f; // pixel al secondo
+    sf::Clock clock;
+
+    MyEntity wall;
+    wall.setPosition(sf::Vector2f(900.0f, 500.0f));
+    while (window.isOpen())
+    {
+        float dt = clock.restart().asSeconds();
+        // Vettore dal punto corrente al target
+        sf::Vector2f direction = targetPos - entity.getPosition();
+
+        // Calcola la lunghezza del vettore
+        float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+
+        if (distance > 0.f) {
+            // Normalizza il vettore
+            sf::Vector2f movement = (direction / distance) * speed * dt;
+
+            // Non superare il target
+            if (std::sqrt(movement.x * movement.x + movement.y * movement.y) > distance)
+                movement = direction;
+
+            // Muovi l'entità
+
+            entity.move(movement);
+
+            // get the bounding box of the entity
+            sf::FloatRect boundingBox = entity.getGlobalBounds();
+            sf::FloatRect otherBox =wall.getGlobalBounds();
+            if (const std::optional intersection = boundingBox.findIntersection(otherBox))
+            {
+                // Simple collision response: stop the entity
+            }
+        }
+
+        while (const std::optional event = window.pollEvent())
+        {
+
+            if (event->is<sf::Event::Closed>())
+            {
+                window.close();
+            }
+
+        }
+
+
+        window.clear(sf::Color::Black);
+        window.draw(entity);
+        window.draw(wall);
+
+        window.display();
+    }
+}
+*/
