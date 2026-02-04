@@ -158,7 +158,11 @@ float MapSearchNode::GetCost(MapSearchNode& successor) {
 
 
 void Astar(MapSearchNode nodeStart, MapSearchNode nodeEnd,std::vector<sf::Vector2i> &Steps) {
-
+    if (world_map[nodeEnd.y*MAP_WIDTH+nodeEnd.x]==999)
+    {
+        cout<<"Selezionata casella irraggiungibile"<<endl;
+        return;
+    }
     Steps.clear(); //lo pulisco all'inizio
 
     AStarSearch<MapSearchNode> astarsearch;
