@@ -30,6 +30,8 @@ add_executable(main
         src/MyEntity.cpp
         src/Map.cpp
 )
+file(COPY ${CMAKE_SOURCE_DIR}/png
+        DESTINATION ${CMAKE_BINARY_DIR}/bin)
 
 target_link_libraries(main PRIVATE SFML::Graphics)
 

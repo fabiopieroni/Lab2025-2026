@@ -80,7 +80,7 @@ int main() {
 
 
     TileMap map;
-    if (!map.load("tileset1.png", {32, 32}, level.data(), 64, 36)) //crea mappa
+    if (!map.load("png/tileset1.png", {32, 32}, level.data(), 64, 36)) //crea mappa
         return -1;
     MapSearchNode nodeStart;
     MapSearchNode nodeEnd;
