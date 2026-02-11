@@ -19,7 +19,7 @@ using namespace std;
 #define DEBUG_LISTS 0
 #define DEBUG_LIST_LENGTHS_ONLY 0
 
-// Global data
+
 const int MAP_WIDTH=64;
 const int MAP_HEIGHT=36;
 int world_map[MAP_WIDTH * MAP_HEIGHT];

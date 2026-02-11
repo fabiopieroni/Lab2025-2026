@@ -1,6 +1,4 @@
-//
-// Created by fabio on 18/01/2026.
-//
+
 #pragma once
 #include <SFML/Graphics.hpp>
 

@@ -1,6 +1,4 @@
-//
-// Created by fabio on 16/12/2025.
-//
+
 
 #include "MyEntity.h"
 
